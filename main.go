@@ -4,15 +4,21 @@ import (
 	"fmt"
 	"log"
 	"io/ioutil"
+	"os"
+	"strconv"
 )
 
 func main() {
-	files, err := ioutil.ReadDir(".")
+	dirPath := "./sample/"
+	files, err := ioutil.ReadDir(dirPath)
 	if err != nil {
 		log.Fatal(err)
 	}
-	
-	for _, f := range files {
+
+	newFilePrefix := "new_"
+	fileExtension := ".txt"
+	for i, f := range files {
 		fmt.Println(f.Name())
+		os.Rename(dirPath +f.Name(), dirPath + newFilePrefix + strconv.Itoa(i) + fileExtension)
 	}
 }
